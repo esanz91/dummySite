@@ -1,14 +1,7 @@
 var express = require('express');
 var app = express();
 var handlebars = require('express3-handlebars').create({ defaultLayout:'main' });
-
-var facts = [
-    "Graduated Rutgers University with Computer Science and Economics.",
-    "Loves art.",
-    "Took Japanese course at local community college while in high school.",
-    "Avid learner.",
-    "Passionate about doing."
-];
+var facts = require('./lib/randomFacts.js');
 
 // register handlebars engine with express app
 app.engine('handlebars', handlebars.engine);
@@ -21,14 +14,12 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res){
     res.render('home'); //how does it know that home is in views/layout
-})
+});
 
 //this would never be seen if the above had a wildcard:  '/*'
 app.get('/about', function(req, res){
-    var randomFact =
-        facts[Math.floor(Math.random() * facts.length)];
-    res.render('about', { fact: randomFact });
-})
+    res.render('about', { fact: facts.getFact() });
+});
 
 //app.use: express knows the difference between 404 and 500 route
 //because their functions have different parameters
