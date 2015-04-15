@@ -1,2 +1,1 @@
-Website created to learn Node and Express
-`
+My personal site created using Node and Express.
