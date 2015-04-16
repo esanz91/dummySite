@@ -12,17 +12,34 @@ app.set('port', process.env.PORT || 3000);
 //define route for static files
 app.use(express.static(__dirname + '/public'));
 
+//set up global page testing
+app.use(function(req, res, next){
+    res.locals.showTests = app.get('env') !== 'production' && req.query.test === '1';
+    next();
+});
+
 app.get('/', function(req, res){
-    res.render('home'); //how does it know that home is in views/layout
+    res.render('home');
 });
 
-//this would never be seen if the above had a wildcard:  '/*'
 app.get('/about', function(req, res){
-    res.render('about', { fact: facts.getFact() });
+    res.render('about', {
+        fact: facts.getFact(),
+        pageTestScript: '/qa/tests-about.js' //for testing purposes on About page
+    });
 });
 
-//app.use: express knows the difference between 404 and 500 route
-//because their functions have different parameters
+app.get('/contracting/webdev', function (req, res){
+    res.render('contracting/webdev');
+})
+
+app.get('/contracting/android', function (req, res){
+    res.render('contracting/android');
+})
+
+app.get('/contracting/request-rate', function(req, res){
+    res.render('contracting/request-rate');
+})
 
 // custom 404 page
 app.use(function(req, res){
