@@ -1,6 +1,16 @@
 var express = require('express');
 var app = express();
-var handlebars = require('express3-handlebars').create({ defaultLayout:'main' });
+var handlebars = require('express3-handlebars').create({
+    defaultLayout:'main',
+    helper: {
+        section: function(name, options){
+            if(!this._sections) this._sections = {};
+            this._sections[name] = options.fn(this);
+            return null;
+        }
+    }
+});
+
 var facts = require('./lib/randomFact.js');
 var projects = require('./lib/myProjects.js');
 

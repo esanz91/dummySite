@@ -1,36 +1,49 @@
 <!doctype html>
 <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Elizabeth Sanz</title>
 
-<head>
-    <title>Elizabeth Sanz</title>
+        {{#if showTests}}
+            <link rel="stylesheet" href="/vendor/mocha.css">
+        {{/if}}
 
-    {{#if showTests}}
-        <link rel="stylesheet" href="/vendor/mocha.css">
-    {{/if}}
+        {{{_sections.head}}}
 
-    <script src="//code.jquery.com/jquery-2.0.2.min.js"></script>
-</head>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<body>
-    <header><img src="/img/logo.png" alt="bird logo"></header>
-    {{{body}}}
+    </head>
+    <body>
+        <header><img src="/img/logo.png" alt="bird logo"></header>
 
-    {{#if showTests}}
-        <div id="mocha"></div>
-        <script src="/vendor/mocha.js"></script>
-        <script src="/vendor/chai.js"></script>
-        <script>
-            mocha.ui('tdd');
-            var assert = chai.assert;
-        </script>
+        <div class="container">
+            {{{body}}}
 
-        <script src="/qa/tests-global.js"></script>
-            {{#if pageTestScript}}
-                <script src="{{pageTestScript}}"></script>
-            {{/if}}
+            <hr>
 
-        <script>mocha.run();</script>
-    {{/if}}
+            <footer>
+                <p>2015</p>
+            </footer>
+        </div>
 
-</body>
+        <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+        {{{_sections.jquery}}}
+
+        {{#if showTests}}
+            <div id="mocha"></div>
+            <script src="/vendor/mocha.js"></script>
+            <script src="/vendor/chai.js"></script>
+            <script>
+                mocha.ui('tdd');
+                var assert = chai.assert;
+            </script>
+            <script src="/qa/tests-global.js"></script>
+                {{#if pageTestScript}}
+                    <script src="{{pageTestScript}}"></script>
+                {{/if}}
+            <script>mocha.run();</script>
+        {{/if}}
+    </body>
 </html>
