@@ -1,0 +1,11 @@
+<div class="projectWidget">
+    {{#each partials.projects.descriptions}}
+        <div class="description">
+            <h3>{{name}}</h3>
+            <a href="{{projectUrl}}">
+                <img src="{{iconUrl}}">
+            </a>
+            <p>{{description}}</p>
+        </div>
+    {{/each}}
+</div>
