@@ -1,6 +1,48 @@
+{{#section 'head'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+
+
+    <script id="techCourseTemplate" type="text/x-handlebars-template">
+        Educational Institution: <b>\{{eInstitution}}</b>
+        Course Name: <b>\{{cName}}</b>
+        Course Description: \{{cDescription}}
+    </script>
+
+{{/section}}
+
 <div id="techCourse">Click a button....</div>
 <hr>
 <button id="btnTechCourse">Display tech course</button>
 <button id="btnTechCourseAjax">Display tech course from AJAX</button>
 
 
+{{#section 'jquery'}}
+    <script>
+        $(document).ready(function(){
+
+            var techCourseTemplate = Handlebars.compile(
+                    $('#techCourseTemplate').html());
+
+            var $techCourse = $('#techCourse');
+
+            $('#btnTechCourse').on('click', function(evt){
+                evt.preventDefault();
+                $techCourse.html(techCourseTemplate({
+                    eInstitution: 'Rutgers',
+                    cName: 'Computer Algorithms',
+                    cDescription: 'Learning Algorithms'
+                }));
+            });
+
+            $('#btnTechCourseAjax').on('click', function(evt){
+                evt.preventDefault();
+                $.ajax('/data/tech-course', {
+                    success: function(data){
+                        $techCourse.html(techCourseTemplate(data))
+                    }
+                });
+            });
+
+        });
+    </script>
+{{/section}}
