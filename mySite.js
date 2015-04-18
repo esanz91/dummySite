@@ -60,6 +60,22 @@ app.get('/contracting/request-rate', function(req, res){
     res.render('contracting/request-rate');
 });
 
+app.get('/jquery-test', function(req, res){
+    res.render('jquery-test');
+});
+
+app.get('/tech-course', function(req, res){
+    res.render('tech-course');
+});
+
+app.get('/data/tech-course', function(req, res){
+    res.json({
+        eInstitution: 'CodeSchool',
+        cName: 'Learning JavaScript',
+        cDescription: 'JavaScript for Beginners'
+    });
+});
+
 // custom 404 page
 app.use(function(req, res){
     res.status(404);
