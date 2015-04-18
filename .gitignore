@@ -42,3 +42,8 @@ node_modules
 ehthumbs.db
 Thumbs.db
 *~
+
+# IntelliJ files #
+##################
+*.idea
+*.iml
