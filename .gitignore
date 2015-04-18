@@ -1,6 +1,4 @@
-archive
-
-#ignore packages installed by npm 
+#ignore packages installed by npm
 #since it can be generated at any time with npm
 node_modules
 

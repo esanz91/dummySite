@@ -1,5 +1,15 @@
+//express module
 var express = require('express');
 var app = express();
+
+//route middleware
+var userRoute = require('./routes/userRoute');
+
+//custom modules
+var facts = require('./lib/randomFact.js');
+var projects = require('./lib/myProjects.js');
+
+// register handlebars engine with express app
 var handlebars = require('express3-handlebars').create({
     defaultLayout:'main',
     helpers: {
@@ -10,11 +20,6 @@ var handlebars = require('express3-handlebars').create({
         }
     }
 });
-
-var facts = require('./lib/randomFact.js');
-var projects = require('./lib/myProjects.js');
-
-// register handlebars engine with express app
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -75,6 +80,9 @@ app.get('/data/tech-course', function(req, res){
         cDescription: 'JavaScript for Beginners'
     });
 });
+
+//mount middleware (userRoute)
+app.use('/user', userRoute);
 
 // custom 404 page
 app.use(function(req, res){
