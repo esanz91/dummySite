@@ -45,3 +45,7 @@ Thumbs.db
 ##################
 *.idea
 *.iml
+
+# Project files #
+#################
+credentials.js
