@@ -20,6 +20,10 @@ var handlebars = require('express3-handlebars').create({
         }
     }
 });
+
+//file upload module
+var formidable = require('formidable');
+
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -85,10 +89,10 @@ app.get('/data/tech-course', function(req, res){
 });
 
 
+//form submission
 app.get('/newsletter', function(req, res){
    res.render('newsletter', {csrf: 'CRSF token goes here'})
 });
-
 app.post('/process', function(req, res){
     if(req.xhr || req.accepts('json,html')==='json'){
         // if there were an error, we would send { error: 'error description' }
@@ -108,6 +112,27 @@ app.post('/process', function(req, res){
         res.redirect(303, '/thank-you');
     }
 })
+
+
+//file uploads
+app.get('/contest/doppelganger-photo',function(req,res){
+    var now = new Date();
+    console.log("year:" + now.getFullYear() + ", month:" + now.getMonth());
+    res.render('contest/doppelganger-photo',{
+        year: now.getFullYear(), month: now.getMonth()
+    });
+});
+app.post('/contest/doppelganger-photo/:year/:month', function(req, res){
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files){
+        if(err) return res.redirect(303, '/error');
+        console.log('received fields:');
+        console.log(fields);
+        console.log('received files:');
+        console.log(files);
+        res.redirect(303, '/thank-you');
+    });
+});
 
 //mount middleware (userRoute)
 app.use('/user', userRoute);
