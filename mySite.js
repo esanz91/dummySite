@@ -24,6 +24,10 @@ var handlebars = require('express3-handlebars').create({
 //file upload module
 var formidable = require('formidable');
 
+//cookie
+var credentials = require('./credentials.js');
+app.use(require('cookie-parser')(credentials.cookieSecret));
+
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
