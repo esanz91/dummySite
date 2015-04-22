@@ -20,18 +20,27 @@ var handlebars = require('express3-handlebars').create({
         }
     }
 });
+app.engine('handlebars', handlebars.engine);
+app.set('view engine', 'handlebars');
+
+//set port
+app.set('port', process.env.PORT || 3000);
 
 //file upload module
 var formidable = require('formidable');
 
-//cookie
+//cookie and session
 var credentials = require('./credentials.js');
 app.use(require('cookie-parser')(credentials.cookieSecret));
+app.use(require('express-session')());
 
-app.engine('handlebars', handlebars.engine);
-app.set('view engine', 'handlebars');
-
-app.set('port', process.env.PORT || 3000);
+//flash message middleware
+app.use(function(req, res, next){
+// if there's a flash message, transfer it to the context, then clear it
+    res.locals.flash = req.session.flash;
+    delete req.session.flash;
+    next();
+});
 
 //define route for static files
 app.use(express.static(__dirname + '/public'));
@@ -94,8 +103,11 @@ app.get('/data/tech-course', function(req, res){
 
 
 //form submission
+app.get('/thank-you', function(req, res){
+    res.render('thank-you');
+});
 app.get('/newsletter', function(req, res){
-   res.render('newsletter', {csrf: 'CRSF token goes here'})
+   res.render('newsletter', { csrf: 'CRSF token goes here' })
 });
 app.post('/process', function(req, res){
     if(req.xhr || req.accepts('json,html')==='json'){
