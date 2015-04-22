@@ -29,10 +29,31 @@ app.set('port', process.env.PORT || 3000);
 //file upload module
 var formidable = require('formidable');
 
-//cookie and session
+//credentials
 var credentials = require('./credentials.js');
+
+//cookie and session
 app.use(require('cookie-parser')(credentials.cookieSecret));
 app.use(require('express-session')());
+
+//database configuration
+var mongoose = require('mongoose');
+var opts = {
+    server: {
+        socketOptions: { keepAlive: 1 }
+    }
+};
+switch(app.get('env')){
+    case 'development':
+        mongoose.connect(credentials.mongoDB.development.connectionString, opts);
+        break;
+    case 'production':
+        mongoose.connect(credentials.mongoDB.production.connectionString, opts);
+        break;
+    default:
+        throw new Error('Unknown execution environment: ' + app.get('env'));
+}
+
 
 //flash message middleware
 app.use(function(req, res, next){
