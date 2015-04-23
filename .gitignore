@@ -1,7 +1,3 @@
-#ignore packages installed by npm
-#since it can be generated at any time with npm
-node_modules
-
 # Compiled source #
 ###################
 *.com
@@ -48,4 +44,6 @@ Thumbs.db
 
 # Project files #
 #################
+node_modules
+private
 credentials.js

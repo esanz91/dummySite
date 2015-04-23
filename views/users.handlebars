@@ -1,0 +1,13 @@
+<h1>Current Users</h1>
+
+{{#each users}}
+    <div class="user">
+
+        <h3>Name: {{name}}</h3>
+
+        {{#if loggedIn}}
+            <span class="email">Contact: {{email}}</span>
+        {{/if}}
+
+    </div>
+{{/each}}

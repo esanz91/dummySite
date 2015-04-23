@@ -30,7 +30,7 @@ app.set('port', process.env.PORT || 3000);
 var formidable = require('formidable');
 
 //credentials
-var credentials = require('./credentials.js');
+var credentials = require('./private/credentials.js');
 
 //cookie and session
 app.use(require('cookie-parser')(credentials.cookieSecret));
@@ -172,7 +172,7 @@ app.post('/contest/doppelganger-photo/:year/:month', function(req, res){
 });
 
 //mount middleware (userRoute)
-app.use('/user', userRoute);
+app.use('/users', userRoute);
 
 // custom 404 page
 app.use(function(req, res){
