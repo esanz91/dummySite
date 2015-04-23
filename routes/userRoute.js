@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
                     name: user.getName(),
                     email: user.email,
                     loggedIn: user.loggedIn
-                }
+                };
             })
         };
         res.render('users', context);

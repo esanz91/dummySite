@@ -5,7 +5,7 @@ var browser;
 suite('Cross-Page Tests', function(){
 
     setup(function(){
-        browser = new Browser()
+        browser = new Browser();
     });
 
     test('requesting a rate from the webdev page should populate the referrer field', function(done){

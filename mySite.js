@@ -128,7 +128,7 @@ app.get('/thank-you', function(req, res){
     res.render('thank-you');
 });
 app.get('/newsletter', function(req, res){
-   res.render('newsletter', { csrf: 'CRSF token goes here' })
+   res.render('newsletter', { csrf: 'CRSF token goes here' });
 });
 app.post('/process', function(req, res){
     if(req.xhr || req.accepts('json,html')==='json'){
@@ -148,7 +148,7 @@ app.post('/process', function(req, res){
         //redirect
         res.redirect(303, '/thank-you');
     }
-})
+});
 
 
 //file uploads
